@@ -1,6 +1,6 @@
 from dash.dependencies import Input, Output, State
-import dash_html_components as html
-from utils import NUM1, NUM2, BANANA_IMAGE, next
+from dash import html
+from utils import NUM1, NUM2, BANANA_IMAGE
 
 
 def register_callbacks(app):
@@ -13,7 +13,6 @@ def register_callbacks(app):
     def calculate(n_clicks, user_answer):
         correct_answer = NUM1 + NUM2
         if user_answer == correct_answer:
-            next()
             return html.Div([html.P("Correct!"), html.P(f"The answer is indeed {correct_answer}.")],
                             style={'color': 'green', 'fontSize': '24px'})
         elif user_answer is None:

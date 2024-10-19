@@ -11,7 +11,3 @@ with open("banana.png", "rb") as image_file:
 BANANA_IMAGE = f"data:image/png;base64,{ENCODED_IMAGE}"
 
 
-def next():
-    NUM1 = random.randint(0, 9)
-    NUM2 = random.randint(0, 9)
-    print()
