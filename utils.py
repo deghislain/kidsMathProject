@@ -1,8 +1,8 @@
 import random
 import base64
 
-NUM1 = 1
-NUM2 = 1
+NUM1 = random.randint(0, 9)
+NUM2 = random.randint(0, 9)
 RESP = 0
 
 with open("banana.png", "rb") as image_file:
