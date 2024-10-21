@@ -1,6 +1,6 @@
 from dash import html
 from dash import dcc
-from addition import math_addition_table
+from addition_layout import math_addition_table
 
 
 def main_layout():

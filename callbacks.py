@@ -1,7 +1,7 @@
 from dash.dependencies import Input, Output, State
 from dash import html, dcc
 from utils import BANANA_IMAGE, update_numbers, get_num1, get_num2
-from layouts import main_layout
+from main_layouts import main_layout
 
 
 def register_callbacks(app):
