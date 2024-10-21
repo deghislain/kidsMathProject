@@ -1,6 +1,7 @@
 from dash.dependencies import Input, Output, State
-from dash import html
-from utils import NUM1, NUM2, BANANA_IMAGE
+from dash import html, dcc
+from utils import BANANA_IMAGE, update_numbers, get_num1, get_num2
+from layouts import main_layout
 
 
 def register_callbacks(app):
@@ -11,7 +12,7 @@ def register_callbacks(app):
         prevent_initial_call=True
     )
     def calculate(n_clicks, user_answer):
-        correct_answer = NUM1 + NUM2
+        correct_answer = get_num1() + get_num2()
         if user_answer == correct_answer:
             return html.Div([html.P("Correct!"), html.P(f"The answer is indeed {correct_answer}.")],
                             style={'color': 'green', 'fontSize': '24px'})
@@ -21,14 +22,23 @@ def register_callbacks(app):
             return html.Div([html.P("Incorrect."), html.P(f"Try Again.")],
                             style={'color': 'red', 'fontSize': '24px'})
 
-
     @app.callback(
         Output("resp_banana", "children"),
         [Input("equals_id", "n_clicks")]
         , prevent_initial_call=True
     )
     def add_show_images(n_clicks):
-        resp = NUM1 + NUM2
+        resp = get_num1() + get_num2()
         return html.Td(html.Div([html.Img(src=BANANA_IMAGE, height=50) for _ in range(resp)], id="resp",
                                 style={'display': 'grid', 'gridTemplateColumns': 'repeat(3, 1fr)', 'gap': '10px',
                                        'align': 'center'}))
+
+    @app.callback(
+        Output('main_layout', 'children'),
+        Input('next_id', 'n_clicks')
+    )
+    def refresh_page(next_id):
+        if int(next_id) > 0:
+            update_numbers()
+            return dcc.Location(href='/', id='redirect')
+        return main_layout()
