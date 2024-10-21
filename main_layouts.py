@@ -5,11 +5,6 @@ from addition_layout import math_addition_table
 
 def main_layout():
     return html.Div([
-        dcc.Interval(
-            id='interval-component',
-            interval=1000,  # in milliseconds (e.g., 10 seconds)
-            n_intervals=0
-        ),
         html.Div([
             html.Button("Next", id="next_id", n_clicks=0, style={"fontSize": "24px"}),
             html.Span(style={'marginRight': '350px'}),
