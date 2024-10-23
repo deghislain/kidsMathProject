@@ -6,7 +6,7 @@ from addition_layout import math_addition_table
 def main_layout(operation=False, is_start = True):
     content = math_addition_table() if operation else html.Div([
         dcc.Checklist(
-            id="math-operation",
+            id="math-operations_id",
             options=[
                 {"label": "Addition", "value": "addition"},
                 {"label": "Subtraction", "value": "subtraction"},
