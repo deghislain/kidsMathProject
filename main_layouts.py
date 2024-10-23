@@ -1,26 +1,35 @@
 from dash import html
 from dash import dcc
 from addition_layout import math_addition_table
+from subtraction_layout import math_subtraction_table
 
 
-def main_layout(operation=False, is_start = True):
-    content = math_addition_table() if operation else html.Div([
-        dcc.Checklist(
-            id="math-operations_id",
-            options=[
-                {"label": "Addition", "value": "addition"},
-                {"label": "Subtraction", "value": "subtraction"},
-                {"label": "Multiplication", "value": "multiplication"},
-            ],
-            value=[],
-            labelStyle={'display': 'block'}
-        ),
-    ], style={'display': 'block', 'textAlign': 'center'})
+def main_layout(operation=3, is_start=True):
+    content = None
+    if operation == 0:
+        content = math_addition_table()
+    elif operation == 1:
+        content = math_subtraction_table()
+    else:
+        content = html.Div([
+            dcc.Checklist(
+                id="math-operations_id",
+                options=[
+                    {"label": "Addition", "value": "addition"},
+                    {"label": "Subtraction", "value": "subtraction"},
+                    {"label": "Multiplication", "value": "multiplication"},
+                ],
+                value=[],
+                labelStyle={'display': 'block'}
+            ),
+        ], style={'display': 'block', 'textAlign': 'center'})
 
     return html.Div([
         html.Div([
-            html.Button("Start", id="start_id", n_clicks=0, style={"fontSize": "24px", "display": "inline" if is_start else "none"}),
-            html.Button("Next", id="next_id", n_clicks=0, style={"fontSize": "24px", "display": "none" if is_start else "inline"}),
+            html.Button("Start", id="start_id", n_clicks=0,
+                        style={"fontSize": "24px", "display": "inline" if is_start else "none"}),
+            html.Button("Next", id="next_id", n_clicks=0,
+                        style={"fontSize": "24px", "display": "none" if is_start else "inline"}),
             html.Span(style={'marginRight': '350px'}),
         ], style={'textAlign': 'right'}),
         html.Div([

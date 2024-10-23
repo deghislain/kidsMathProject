@@ -2,8 +2,11 @@ from dash.dependencies import Input, Output, State
 from dash import html, dcc
 from utils import BANANA_IMAGE, update_numbers, get_num1, get_num2
 from main_layouts import main_layout
+import random
 
 operations = []
+
+
 def register_callbacks(app):
     @app.callback(
         Output("result", "children"),
@@ -40,12 +43,19 @@ def register_callbacks(app):
         [State("math-operations_id", "value")],
         prevent_initial_call=True
     )
-    def refresh_page(next_id, start_id, value):
+    def next_page(next_id, start_id, value):
         if int(start_id) > 0:
-            operations = value
-            if 'addition' in operations:
-                return main_layout(True, False)
+            return get_next_exercise(value)
         if int(next_id) > 0:
             update_numbers()
-            return dcc.Location(href='/', id='redirect')
+            return get_next_exercise()
         return main_layout()
+
+    def get_next_exercise(value=None):
+        global operations
+        if value:
+            operations = value
+        if len(operations) > 1:
+            return main_layout(random.randint(0, len(operations)-1), False)
+        else:
+            return main_layout(0, False)
