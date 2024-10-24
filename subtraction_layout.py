@@ -25,8 +25,11 @@ def math_subtraction_table():
                                     'align': 'center'})),
             html.Td(id="math-operations_id"),
             html.Td(),
-
-            html.Td(),
+            html.Td([
+                html.Button('━', id='remove_id', style={'margin': '0px 50px', 'marginTop': '20px', 'fontSize': '24px'}),
+                dcc.Input(id="sub_number", type="number", placeholder="Enter a number here", value=0,debounce=True,
+                              style={"fontSize": "20px","width": "200px", "textAlign": "center"})
+                     ]),
             html.Td(id="resp_banana")
         ]),
         html.Div(style={'height': '50px'}),

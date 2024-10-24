@@ -33,8 +33,8 @@ def math_addition_table():
         html.Div(style={'height': '50px'}),
 
         html.Tr([
-            html.Td(),
-            html.Td(),
+            html.Td(dcc.Input(id="sub_number", type="number", value="0", style={"display": "none"})),
+            html.Td(id="remove_id"),
             html.Td(html.Button("Check", id="check_id", style={"fontSize": "24px"})),
             html.Td( dcc.Input(id="page_type", type="text", value="addition", style={"display": "none"})),
             html.Td(html.Div(id="result"))

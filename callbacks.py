@@ -17,9 +17,14 @@ def register_callbacks(app):
     )
     def calculate(n_clicks, user_answer, page_type):
         """Check user's answer and return feedback."""
-        correct_answer = get_num1() + get_num2()
+        correct_answer = None
+        if page_type == "addition":
+            correct_answer = get_num1() + get_num2()
+        elif page_type == "subtraction":
+            num2, num1 = min(get_num1(), get_num2()), max(get_num1(), get_num2())
+            correct_answer = num1 - num2
         if user_answer is None:
-            return html.P("Please enter your answer.")
+            return html.P("Please enter your answer.", style={'color': 'blue', 'fontSize': '24px'})
 
         is_correct = (user_answer == correct_answer) or (page_type == "counting" and user_answer == get_num1())
         message = f"The answer is indeed {correct_answer}." if is_correct else "Try Again."
@@ -32,12 +37,23 @@ def register_callbacks(app):
 
     @app.callback(
         Output("resp_banana", "children"),
-        [Input("equals_id", "n_clicks")],
+        [Input("equals_id", "n_clicks"),
+         Input("remove_id", "n_clicks")],
+        [State("sub_number", "value"), State("page_type", "value")],
         prevent_initial_call=True
     )
-    def add_show_images(n_clicks):
+    def add_show_images(equals_id, remove_id, sub_number, page_type):
         """Display bananas representing the correct answer."""
-        correct_answer = get_num1() + get_num2()
+        ctx = dash.callback_context
+        trigger = ctx.triggered[0]['prop_id'].split('.')[0]
+        correct_answer = None
+        if trigger == 'equals_id' and page_type == "addition":
+            correct_answer = get_num1() + get_num2()
+        elif sub_number >= 0 and trigger == 'remove_id':
+            num2, num1 = min(get_num1(), get_num2()), max(get_num1(), get_num2())
+            correct_answer = num1 - sub_number
+            if correct_answer is None or correct_answer < 0:
+                return html.P(f"Invalid number. Enter a number smaller than {get_num1()}", style={'color': 'red', 'fontSize': '24px'})
         return html.Td(
             html.Div(
                 [html.Img(src=BANANA_IMAGE, height=50) for _ in range(correct_answer)],
