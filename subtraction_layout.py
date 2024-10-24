@@ -35,7 +35,7 @@ def math_subtraction_table():
             html.Td(),
             html.Td(),
             html.Td(html.Button("Check", id="check_id", style={"fontSize": "24px"})),
-            html.Td(),
+            html.Td(dcc.Input(id="page_type", type="text", value="subtraction", style={"display": "none"})),
             html.Td(html.Div(id="result"))
         ])
     ], style={'margin': '0 auto', 'width': '70%'})
