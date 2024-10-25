@@ -96,4 +96,4 @@ def get_next_exercise(value=None):
     elif len(operations) == 1:
         return main_layout(get_chosen_operation(operations), False)
     else:
-        return html.P("Please choose an operation.", style={'color': 'blue', 'fontSize': '24px'}, id="err_msg")
+        return main_layout(err_msg="Please chose an operation")

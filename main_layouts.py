@@ -4,7 +4,7 @@ from subtraction_layout import math_subtraction_table
 from counting_layout import counting_page
 
 
-def main_layout(operation=4, is_start=True):
+def main_layout(operation=5, is_start=True, err_msg=None):
     """Generate the main layout based on the operation."""
 
     # Define instruction and content for each operation
@@ -15,7 +15,7 @@ def main_layout(operation=4, is_start=True):
     }
 
     # Default to operation selection if operation is not specified
-    if operation == 4:
+    if operation == 5:
         content = html.Div([
             dcc.Checklist(
                 id="math-operations_id",
@@ -29,6 +29,9 @@ def main_layout(operation=4, is_start=True):
             ),
         ], style={'display': 'block', 'textAlign': 'center'})
         instruction = ""
+        if err_msg:
+            instruction = err_msg
+
     else:
         content = operations.get(operation, {"content": html.Div("Invalid operation")})["content"]
         instruction = operations.get(operation, {"instruction": ""})["instruction"]
