@@ -1,7 +1,7 @@
 import dash
 from dash.dependencies import Input, Output, State
 from dash import html, dcc
-from utils import BANANA_IMAGE, update_numbers, get_num1, get_num2
+from utils import BANANA_IMAGE, update_numbers, get_num1, get_num2, get_chosen_operation
 from main_layouts import main_layout
 import random
 
@@ -93,5 +93,7 @@ def get_next_exercise(value=None):
         operations = value
     if len(operations) > 1:
         return main_layout(random.randint(0, len(operations) - 1), False)
+    elif len(operations) == 1:
+        return main_layout(get_chosen_operation(operations), False)
     else:
-        return main_layout(0, False)
+        return html.P("Please choose an operation.", style={'color': 'blue', 'fontSize': '24px'}, id="err_msg")

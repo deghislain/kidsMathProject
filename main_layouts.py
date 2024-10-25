@@ -42,7 +42,7 @@ def main_layout(operation=4, is_start=True):
         html.Div([
             html.Button("Start", id="start_id", n_clicks=0, style=start_style),
             html.Button("Next", id="next_id", n_clicks=0, style=next_style),
-            html.Span(style={'marginRight': '350px'}),
+            html.Span(style={'marginRight': '350px'}, id="err_msg"),
         ], style={'textAlign': 'right'}),
         html.Div([
             html.H1("Math Web Application"),
