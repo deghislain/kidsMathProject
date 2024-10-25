@@ -1,9 +1,9 @@
 from dash import html
 from dash import dcc
-from utils import BANANA_IMAGE, get_num1, get_num2
+from utils import get_image, get_num1, get_num2
 
 
-def math_subtraction_table():
+def math_subtraction_table(fruit_selector):
     num2, num1 = min(get_num1(), get_num2()), max(get_num1(), get_num2())
     return html.Table([
         html.Tr([
@@ -20,7 +20,7 @@ def math_subtraction_table():
         ]),
         html.Div(style={'height': '50px'}),
         html.Tr([
-            html.Td(html.Div([html.Img(src=BANANA_IMAGE, height=50) for _ in range(num1)],
+            html.Td(html.Div([html.Img(src=get_image(fruit_selector), height=50) for _ in range(num1)],
                              style={'display': 'grid', 'gridTemplateColumns': 'repeat(3, 1fr)', 'gap': '10px',
                                     'align': 'center'})),
             html.Td(id="math-operations_id"),
@@ -36,7 +36,7 @@ def math_subtraction_table():
 
         html.Tr([
             html.Td(),
-            html.Td(),
+            html.Td( id='fruit_selector'),
             html.Td(html.Button("Check", id="check_id", style={"fontSize": "24px"})),
             html.Td(dcc.Input(id="page_type", type="text", value="subtraction", style={"display": "none"})),
             html.Td(html.Div(id="result"))

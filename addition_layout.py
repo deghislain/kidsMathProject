@@ -1,9 +1,9 @@
 from dash import html
 from dash import dcc
-from utils import BANANA_IMAGE, get_num1, get_num2
+from utils import get_image, get_num1, get_num2
 
 
-def math_addition_table():
+def math_addition_table(fruit_selector):
     return html.Table([
         html.Tr([
             html.Td(html.P(id="num1-display", children=get_num1(),
@@ -17,13 +17,13 @@ def math_addition_table():
             html.Td(dcc.Input(id="user_answer", type="number", placeholder="Enter your answer here",
                               style={"fontSize": "20px"}))
         ]),
-        html.Div(style={'height': '50px'}),
+        html.Div(style={'height': '50px'}, id='fruit_selector'),
         html.Tr([
-            html.Td(html.Div([html.Img(src=BANANA_IMAGE, height=50) for _ in range(get_num1())],
+            html.Td(html.Div([html.Img(src=get_image(fruit_selector), height=50) for _ in range(get_num1())],
                              style={'display': 'grid', 'gridTemplateColumns': 'repeat(3, 1fr)', 'gap': '10px',
                                     'align': 'center'})),
             html.Td(),
-            html.Td(html.Div([html.Img(src=BANANA_IMAGE, height=50) for _ in range(get_num2())],
+            html.Td(html.Div([html.Img(src=get_image(fruit_selector), height=50) for _ in range(get_num2())],
                              style={'display': 'grid', 'gridTemplateColumns': 'repeat(3, 1fr)', 'gap': '10px',
                                     'align': 'center'})),
 

@@ -1,11 +1,13 @@
 import dash
 from dash.dependencies import Input, Output, State
-from dash import html, dcc
-from utils import BANANA_IMAGE, update_numbers, get_num1, get_num2, get_chosen_operation
+from dash import html
+from utils import get_image, update_numbers, get_num1, get_num2, get_chosen_operation
 from main_layouts import main_layout
 import random
 
 operations = []
+
+chosen_image = ''
 
 
 def register_callbacks(app):
@@ -53,10 +55,11 @@ def register_callbacks(app):
             num2, num1 = min(get_num1(), get_num2()), max(get_num1(), get_num2())
             correct_answer = num1 - sub_number
             if correct_answer is None or correct_answer < 0:
-                return html.P(f"Invalid number. Enter a number smaller than {get_num1()}", style={'color': 'red', 'fontSize': '24px'})
+                return html.P(f"Invalid number. Enter a number smaller than {get_num1()}",
+                              style={'color': 'red', 'fontSize': '24px'})
         return html.Td(
             html.Div(
-                [html.Img(src=BANANA_IMAGE, height=50) for _ in range(correct_answer)],
+                [html.Img(src=get_image(chosen_image), height=50) for _ in range(correct_answer)],
                 id="resp",
                 style={
                     'display': 'grid',
@@ -70,30 +73,31 @@ def register_callbacks(app):
     @app.callback(
         Output('main_layout', 'children'),
         [Input('next_id', 'n_clicks'), Input('start_id', 'n_clicks')],
-        [State("math-operations_id", "value")],
+        [State("math-operations_id", "value"), State("fruit_selector", "value")],
         prevent_initial_call=True
     )
-    def next_page(next_id, start_id, value):
+    def next_page(next_id, start_id, value, fruit_selector):
+        chosen_image = fruit_selector
         """Navigate to the next exercise or start a new one."""
         ctx = dash.callback_context
         trigger = ctx.triggered[0]['prop_id'].split('.')[0]
 
         if trigger == 'start_id':
-            return get_next_exercise(value)
+            return get_next_exercise(value, chosen_image)
         elif trigger == 'next_id':
             update_numbers()
-            return get_next_exercise()
+            return get_next_exercise(chosen_image)
         return main_layout()
 
 
-def get_next_exercise(value=None):
+def get_next_exercise(value=None, fruit_selector=None):
     """Get the next exercise based on the current operations."""
     global operations
     if value:
         operations = value
     if len(operations) > 1:
-        return main_layout(random.randint(0, len(operations) - 1), False)
+        return main_layout(random.randint(0, len(operations) - 1), False, fruit_selector)
     elif len(operations) == 1:
-        return main_layout(get_chosen_operation(operations), False)
+        return main_layout(get_chosen_operation(operations), False, fruit_selector)
     else:
         return main_layout(err_msg="Please chose an operation")
