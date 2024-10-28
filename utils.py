@@ -8,6 +8,8 @@ RESP = 0
 
 
 def get_image(fruit_selector):
+    if not fruit_selector:
+        return
     with open("images/" + fruit_selector.lower() + ".png", "rb") as image_file:
         encoded_image = base64.b64encode(image_file.read()).decode()
 

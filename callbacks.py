@@ -82,13 +82,15 @@ def register_callbacks(app):
         ctx = dash.callback_context
         if fruit_selector:
             session['chosen_image'] = fruit_selector
+        else:
+            fruit_selector = str(session.get('chosen_image'))
         trigger = ctx.triggered[0]['prop_id'].split('.')[0]
 
         if trigger == 'start_id':
             return get_next_exercise(value, fruit_selector)
         elif trigger == 'next_id':
             update_numbers()
-            return get_next_exercise(fruit_selector)
+            return get_next_exercise(value, fruit_selector)
         return main_layout()
 
 
@@ -98,8 +100,8 @@ def get_next_exercise(value=None, fruit_selector=None):
     if value:
         operations = value
     if len(operations) > 1:
-        return main_layout(random.randint(0, len(operations) - 1), False, fruit_selector)
+        return main_layout(random.randint(0, len(operations) - 1), False, None,fruit_selector)
     elif len(operations) == 1:
-        return main_layout(get_chosen_operation(operations), False, fruit_selector)
+        return main_layout(get_chosen_operation(operations), False, None, fruit_selector)
     else:
         return main_layout(err_msg="Please chose an operation")
