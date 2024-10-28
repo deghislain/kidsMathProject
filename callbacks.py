@@ -7,7 +7,7 @@ import random
 
 operations = []
 
-chosen_image = ''
+session = {}
 
 
 def register_callbacks(app):
@@ -45,6 +45,7 @@ def register_callbacks(app):
         prevent_initial_call=True
     )
     def add_show_images(equals_id, remove_id, sub_number, page_type):
+        chosen_image = str(session.get('chosen_image'))
         """Display bananas representing the correct answer."""
         ctx = dash.callback_context
         trigger = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -77,16 +78,17 @@ def register_callbacks(app):
         prevent_initial_call=True
     )
     def next_page(next_id, start_id, value, fruit_selector):
-        chosen_image = fruit_selector
         """Navigate to the next exercise or start a new one."""
         ctx = dash.callback_context
+        if fruit_selector:
+            session['chosen_image'] = fruit_selector
         trigger = ctx.triggered[0]['prop_id'].split('.')[0]
 
         if trigger == 'start_id':
-            return get_next_exercise(value, chosen_image)
+            return get_next_exercise(value, fruit_selector)
         elif trigger == 'next_id':
             update_numbers()
-            return get_next_exercise(chosen_image)
+            return get_next_exercise(fruit_selector)
         return main_layout()
 
 
