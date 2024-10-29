@@ -48,7 +48,7 @@ def main_layout(operation=5, is_start=True, err_msg=None, image_name='Banana'):
             ], style={'display': 'inline-block', 'verticalAlign': 'top', 'width': '49%'}),
 
             html.Div(id='selected-fruit')
-        ], style={'textAlign': 'center'})
+        ], style={'textAlign': 'center', 'width': '100%', 'height': '100%', 'background': '#87CEEB'})
 
         instruction = ""
         if err_msg:
@@ -74,4 +74,4 @@ def main_layout(operation=5, is_start=True, err_msg=None, image_name='Banana'):
             html.H3(instruction, style={'color': 'blue'})
         ], style={'display': 'block', 'textAlign': 'center'}),
         content,
-    ], style={'textAlign': 'center', 'width': '100%', 'background': '#87CEEB'}, id="main_layout")
+    ], style={'textAlign': 'center', 'width': '100%', 'height': '100%', 'background': '#87CEEB'}, id="main_layout")
