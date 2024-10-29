@@ -35,7 +35,7 @@ def math_subtraction_table(fruit_selector):
         html.Div(style={'height': '50px'}),
 
         html.Tr([
-            html.Td(),
+            html.Td( id="equals_div_layout_id"),
             html.Td( id='fruit_selector'),
             html.Td(html.Button("Check", id="check_id", style={"fontSize": "24px"})),
             html.Td(dcc.Input(id="page_type", type="text", value="subtraction", style={"display": "none"})),

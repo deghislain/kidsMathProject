@@ -30,7 +30,7 @@ def math_addition_table(fruit_selector):
             html.Td(id="math-operations_id"),
             html.Td(id="resp_banana")
         ]),
-        html.Div(style={'height': '50px'}),
+        html.Div(style={'height': '50px'}, id="equals_div_layout_id"),
 
         html.Tr([
             html.Td(dcc.Input(id="sub_number", type="number", value="0", style={"display": "none"})),

@@ -25,7 +25,9 @@ def register_callbacks(app):
         elif page_type == "subtraction":
             num2, num1 = min(get_num1(), get_num2()), max(get_num1(), get_num2())
             correct_answer = num1 - num2
-        if user_answer is None:
+        elif page_type == "division":
+            correct_answer =  int(get_num1()/get_num2())
+        elif user_answer is None:
             return html.P("Please enter your answer.", style={'color': 'blue', 'fontSize': '24px'})
 
         is_correct = (user_answer == correct_answer) or (page_type == "counting" and user_answer == get_num1())

@@ -49,7 +49,7 @@ def math_division_table(image_name):
                 html.Tr([
                     html.Td(id="remove_id"),
                     html.Td(id='fruit_selector'),
-                    html.Td(dcc.Input(id="page_type", type="text", value="subtraction", style={"display": "none"})),
+                    html.Td(dcc.Input(id="page_type", type="text", value="division", style={"display": "none"})),
                     html.Td(),
                     html.Td(html.Button("Check", id="check_id", style={"fontSize": "24px"})),
                     html.Td(html.Div(id="result")),

@@ -18,8 +18,8 @@ def get_image(selected_image):
 
 def update_numbers():
     global NUM1, NUM2
-    NUM1 = random.randint(9, 15)
-    NUM2 = random.randint(9, 15)
+    NUM1 = random.randint(0, 9)
+    NUM2 = random.randint(0, 9)
 
 
 def get_num1():
