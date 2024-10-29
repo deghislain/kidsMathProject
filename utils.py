@@ -38,10 +38,21 @@ class Operation(Enum):
     MULTIPLICATION = 4
 
 
+def generate_divisible_numbers(max_num1=10, max_num2=5):
+    global NUM1, NUM2
+    NUM2 = random.randint(1, max_num2)
+    NUM1 = NUM2 * random.randint(1, max_num1 // NUM2)
+
+
 def get_chosen_operation(operations):
     try:
-        return Operation[operations[0].upper()].value
+        current_operation = 0
+        if len(operations) > 1:
+            current_operation = random.randint(0, len(operations) - 1)
+        else:
+            current_operation = Operation[operations[0].upper()].value
+        if current_operation == 3:
+            generate_divisible_numbers(max_num1=10, max_num2=5)
+        return current_operation
     except KeyError:
         return None
-
-

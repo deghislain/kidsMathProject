@@ -100,7 +100,8 @@ def get_next_exercise(value=None, fruit_selector=None):
     if value:
         operations = value
     if len(operations) > 1:
-        return main_layout(random.randint(0, len(operations) - 1), False, None,fruit_selector)
+        #return main_layout(random.randint(0, len(operations) - 1), False, None,fruit_selector)
+        return main_layout(get_chosen_operation(operations), False, None, fruit_selector)
     elif len(operations) == 1:
         return main_layout(get_chosen_operation(operations), False, None, fruit_selector)
     else:

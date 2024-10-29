@@ -54,7 +54,6 @@ def main_layout(operation=5, is_start=True, err_msg=None, image_name='Banana'):
         if err_msg:
             instruction = err_msg
 
-
     else:
         content = operations.get(operation, {"content": html.Div("Invalid operation")})["content"]
         instruction = operations.get(operation, {"instruction": ""})["instruction"]
