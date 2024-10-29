@@ -1,9 +1,6 @@
 from dash import html
 from dash import dcc
-from utils import get_image, get_num1, get_num2
-
-
-image_names = ['icon1', 'icon2', 'icon3', 'icon4', 'icon5']  # replace with your image names
+from utils import get_image, get_num1, get_num2, ICONS
 
 
 def math_division_table(image_name):
@@ -33,12 +30,12 @@ def math_division_table(image_name):
                     html.Td(),
                     html.Td(
                         html.Div(
-                            [html.Img(src=get_image(image_name), height=50) for image_name in image_names[:get_num2()]],
+                            [html.Img(src=get_image(image_name), height=50) for image_name in ICONS[:get_num2()]],
                             style={'display': 'grid', 'gridTemplateColumns': 'repeat(5, 1fr)', 'gap': '10px',
                                    'align': 'center'}
-                            )
+                        )
                     ),
-                    html.Td(id="resp_banana"),
+                    html.Td(),
                     html.Td(),
                 ]),
                 html.Tr([
@@ -52,11 +49,11 @@ def math_division_table(image_name):
                                   debounce=True,
                                   style={"fontSize": "20px", "width": "200px", "textAlign": "center"})
                     ]),
-                    html.Td(),
+                    html.Td(id="sub_number"),
                     html.Td(html.Div(id="result"))
                 ]),
                 html.Tr([
-                    html.Td(),
+                    html.Td(id="remove_id"),
                     html.Td(id='fruit_selector'),
                     html.Td(dcc.Input(id="page_type", type="text", value="subtraction", style={"display": "none"})),
                     html.Td(),
@@ -70,8 +67,8 @@ def math_division_table(image_name):
             html.Table([
                 html.Tr([
                     html.Td(dcc.Input(id="user_answer", type="number", placeholder="Enter your answer here",
-                                      style={"fontSize": "20px"}))
-                ]),
+                                      style={"fontSize": "20px"}))]),
+                html.Div([], id="resp_banana")
             ], style={'width': '100%'}),
         ],
             style={'width': '38%', 'display': 'inline-block', 'vertical-align': 'top'})

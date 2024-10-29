@@ -38,6 +38,9 @@ class Operation(Enum):
     MULTIPLICATION = 4
 
 
+ICONS = ['icon1', 'icon2', 'icon3', 'icon4', 'icon5']
+
+
 def generate_divisible_numbers(max_num1=10, max_num2=5):
     global NUM1, NUM2
     NUM2 = random.randint(1, max_num2)

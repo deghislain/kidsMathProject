@@ -1,7 +1,7 @@
 import dash
 from dash.dependencies import Input, Output, State
 from dash import html
-from utils import get_image, update_numbers, get_num1, get_num2, get_chosen_operation
+from utils import get_image, update_numbers, get_num1, get_num2, get_chosen_operation, ICONS
 from main_layouts import main_layout
 import random
 
@@ -40,24 +40,45 @@ def register_callbacks(app):
     @app.callback(
         Output("resp_banana", "children"),
         [Input("equals_id", "n_clicks"),
-         Input("remove_id", "n_clicks")],
-        [State("sub_number", "value"), State("page_type", "value")],
+         Input("remove_id", "n_clicks"),
+         Input("div_id", "n_clicks")],
+        [State("sub_number", "value"),
+         State("page_type", "value"),
+         State("div_number", "value")],
         prevent_initial_call=True
     )
-    def add_show_images(equals_id, remove_id, sub_number, page_type):
-        chosen_image = str(session.get('chosen_image'))
+    def add_show_images(equals_id, remove_id, div_id, sub_number, page_type, div_number):
         """Display bananas representing the correct answer."""
+        chosen_image = str(session.get('chosen_image'))
         ctx = dash.callback_context
         trigger = ctx.triggered[0]['prop_id'].split('.')[0]
         correct_answer = None
         if trigger == 'equals_id' and page_type == "addition":
             correct_answer = get_num1() + get_num2()
-        elif sub_number >= 0 and trigger == 'remove_id':
+        elif sub_number and sub_number >= 0 and trigger == 'remove_id':
             num2, num1 = min(get_num1(), get_num2()), max(get_num1(), get_num2())
             correct_answer = num1 - sub_number
             if correct_answer is None or correct_answer < 0:
                 return html.P(f"Invalid number. Enter a number smaller than {get_num1()}",
                               style={'color': 'red', 'fontSize': '24px'})
+        elif div_number and div_number >= 1 and trigger == 'div_id':
+            correct_answer = int(get_num1() / get_num2())
+            if correct_answer is None or correct_answer <= 0:
+                return html.P(f"Invalid number. Enter a number smaller or equals to {get_num2()}",
+                              style={'color': 'red', 'fontSize': '24px'})
+            else:
+                return html.Div([
+                    html.Tr([
+                        html.Div([html.Img(src=get_image(image_name), height=50) for image_name in ICONS[:get_num2()]],
+                                 style={'display': 'grid', 'gridTemplateColumns': 'repeat(5, 1fr)', 'gap': '10px',
+                                        'align': 'center'})
+                    ]),
+                    html.Tr([
+                        html.Div([html.Img(src=get_image(chosen_image), height=50) for _ in range(get_num1())],
+                                 style={'display': 'grid', 'gridTemplateColumns': 'repeat(5, 1fr)', 'gap': '10px',
+                                        'align': 'center'})
+                    ]),
+                ]),
         return html.Td(
             html.Div(
                 [html.Img(src=get_image(chosen_image), height=50) for _ in range(correct_answer)],
