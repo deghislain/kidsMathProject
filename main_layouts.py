@@ -2,16 +2,18 @@ from dash import html, dcc
 from addition_layout import math_addition_table
 from subtraction_layout import math_subtraction_table
 from counting_layout import counting_page
+from division_layout import math_division_table
 
 
-def main_layout(operation=5, is_start=True, err_msg=None, fruit_selector='Banana'):
+def main_layout(operation=5, is_start=True, err_msg=None, image_name='Banana'):
     """Generate the main layout based on the operation."""
 
     # Define instruction and content for each operation
     operations = {
-        0: {"instruction": "How many Bananas do you see?", "content": counting_page(fruit_selector)},
-        1: {"instruction": "Click on equals to get help", "content": math_addition_table(fruit_selector)},
-        2: {"instruction": "", "content": math_subtraction_table(fruit_selector)},
+        0: {"instruction": "How many Bananas do you see?", "content": counting_page(image_name)},
+        1: {"instruction": "Click on equals to get help", "content": math_addition_table(image_name)},
+        2: {"instruction": "", "content": math_subtraction_table(image_name)},
+        3: {"instruction": "", "content": math_division_table(image_name)},
     }
 
     # Default to operation selection if operation is not specified
@@ -38,6 +40,7 @@ def main_layout(operation=5, is_start=True, err_msg=None, fruit_selector='Banana
                         {"label": "Counting", "value": "counting"},
                         {"label": "Addition", "value": "addition"},
                         {"label": "Subtraction", "value": "subtraction"},
+                        {"label": "Division", "value": "division"},
                     ],
                     value=[],
                     labelStyle={'display': 'block'}
