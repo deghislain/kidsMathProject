@@ -41,13 +41,12 @@ def register_callbacks(app):
         Output("resp_banana", "children"),
         [Input("equals_id", "n_clicks"),
          Input("remove_id", "n_clicks"),
-         Input("div_id", "n_clicks")],
+         Input("equals_div_layout_id", "n_clicks")],
         [State("sub_number", "value"),
-         State("page_type", "value"),
-         State("div_number", "value")],
+         State("page_type", "value")],
         prevent_initial_call=True
     )
-    def add_show_images(equals_id, remove_id, div_id, sub_number, page_type, div_number):
+    def add_show_images(equals_id, remove_id, equals_div_layout_id, sub_number, page_type):
         """Display bananas representing the correct answer."""
         chosen_image = str(session.get('chosen_image'))
         ctx = dash.callback_context
@@ -61,7 +60,7 @@ def register_callbacks(app):
             if correct_answer is None or correct_answer < 0:
                 return html.P(f"Invalid number. Enter a number smaller than {get_num1()}",
                               style={'color': 'red', 'fontSize': '24px'})
-        elif div_number and div_number >= 1 and trigger == 'div_id':
+        elif trigger == 'equals_div_layout_id':
             correct_answer = int(get_num1() / get_num2())
             if correct_answer is None or correct_answer <= 0:
                 return html.P(f"Invalid number. Enter a number smaller or equals to {get_num2()}",
@@ -69,14 +68,16 @@ def register_callbacks(app):
             else:
                 return html.Div([
                     html.Tr([
-                        html.Div([html.Img(src=get_image(image_name), height=50) for image_name in ICONS[:get_num2()]],
-                                 style={'display': 'grid', 'gridTemplateColumns': 'repeat(5, 1fr)', 'gap': '10px',
-                                        'align': 'center'})
+                        html.Td([html.Img(src=get_image(image_name), height=50) for image_name in ICONS[:get_num2()]],
+                                style={'display': 'grid', 'gridTemplateColumns': f'repeat({get_num2()}, 1fr)',
+                                       'gap': '30%',
+                                       'align': 'center'})
                     ]),
                     html.Tr([
-                        html.Div([html.Img(src=get_image(chosen_image), height=50) for _ in range(get_num1())],
-                                 style={'display': 'grid', 'gridTemplateColumns': 'repeat(5, 1fr)', 'gap': '10px',
-                                        'align': 'center'})
+                        html.Td([html.Img(src=get_image(chosen_image), height=50) for _ in range(get_num1())],
+                                style={'display': 'grid', 'gridTemplateColumns': f'repeat({get_num2()}, 1fr)',
+                                       'gap': '30%',
+                                       'align': 'center'})
                     ]),
                 ]),
         return html.Td(
