@@ -48,8 +48,8 @@ def generate_divisible_numbers(max_num1=10, max_num2=5):
 
 
 def get_chosen_operation(operations):
+    current_operation = 0
     try:
-        current_operation = 0
         if len(operations) > 1:
             current_operation = random.randint(0, len(operations) - 1)
         else:
@@ -58,4 +58,4 @@ def get_chosen_operation(operations):
             generate_divisible_numbers(max_num1=10, max_num2=5)
         return current_operation
     except KeyError:
-        return None
+        return current_operation
