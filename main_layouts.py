@@ -3,6 +3,7 @@ from addition_layout import math_addition_table
 from subtraction_layout import math_subtraction_table
 from counting_layout import counting_page
 from division_layout import math_division_table
+from multiplication_layout import math_multiplication_table
 
 
 def main_layout(operation=5, is_start=True, err_msg=None, image_name='Banana'):
@@ -14,6 +15,7 @@ def main_layout(operation=5, is_start=True, err_msg=None, image_name='Banana'):
         1: {"instruction": "Click on equals to get help", "content": math_addition_table(image_name)},
         2: {"instruction": "", "content": math_subtraction_table(image_name)},
         3: {"instruction": "Click on equals to get help", "content": math_division_table(image_name)},
+        4: {"instruction": "Click on equals to get help", "content": math_multiplication_table(image_name)},
     }
 
     # Default to operation selection if operation is not specified
@@ -41,6 +43,7 @@ def main_layout(operation=5, is_start=True, err_msg=None, image_name='Banana'):
                         {"label": "Addition", "value": "addition"},
                         {"label": "Subtraction", "value": "subtraction"},
                         {"label": "Division", "value": "division"},
+                        {"label": "Multiplication", "value": "multiplication"},
                     ],
                     value=[],
                     labelStyle={'display': 'block'}

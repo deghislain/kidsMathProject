@@ -24,7 +24,7 @@ def math_subtraction_table(fruit_selector):
                              style={'display': 'grid', 'gridTemplateColumns': 'repeat(3, 1fr)', 'gap': '10px',
                                     'align': 'center'})),
             html.Td(id="math-operations_id"),
-            html.Td(),
+            html.Td(id="equals_mult_layout_id"),
             html.Td([
                 html.Button('━', id='remove_id', style={'margin': '0px 50px', 'marginTop': '20px', 'fontSize': '20px'}),
                 dcc.Input(id="sub_number", type="number", placeholder="Enter a number here", value=0,debounce=True,

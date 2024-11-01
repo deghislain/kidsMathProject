@@ -36,7 +36,7 @@ def math_division_table(image_name):
                         )
                     ),
                     html.Td(),
-                    html.Td(),
+                    html.Td(id="equals_mult_layout_id"),
                 ]),
                 html.Tr([
                     html.Td(),
