@@ -79,10 +79,10 @@ def main_layout(operation=5, is_start=True, err_msg=None, image_name='Banana'):
         content,
     ], style={
         'textAlign': 'center',
-        'width': '100vw',  # Changed from '100%' to '100vw'
-        'height': '100vh',  # Changed from '100%' to '100vh'
+        'width': '100vw',
+        'height': '100vh',
         'background': '#87CEEB',
-        'margin': '0',  # Added to remove any margins
-        'padding': '0',  # Added to remove any padding
-        'overflow': 'hidden'  # Added to prevent scrolling
+        'margin': '0',
+        'padding': '0',
+        'overflow': 'hidden'
     }, id="main_layout")
